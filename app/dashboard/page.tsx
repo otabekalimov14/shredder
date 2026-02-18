@@ -132,7 +132,7 @@ export default function Dashboard() {
       {step !== 'input' && (
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${step !== 'input' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700 text-gray-300'}`}>
+            <div className="flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all bg-gradient-to-r from-purple-500 to-pink-500 text-white">
               1
             </div>
             <div className={`h-1 flex-1 rounded-full transition-all ${step === 'publish' ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gray-700'}`}></div>
