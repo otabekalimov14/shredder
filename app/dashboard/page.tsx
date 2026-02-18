@@ -106,17 +106,49 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+      {/* Animated background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
+      </div>
+
       {/* Header */}
-      <header className="border-b border-gray-200 sticky top-0 bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-black">The Shredder</h1>
-          <p className="text-sm text-gray-600 mt-1">Convert messy school info into calendar events</p>
+      <header className="border-b border-purple-500/20 sticky top-0 bg-slate-900/80 backdrop-blur-xl z-40">
+        <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">The Shredder</h1>
+            <p className="text-sm text-gray-400 mt-1">Extract deadlines. Stay on top.</p>
+          </div>
+          {step !== 'input' && (
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <span>Step {step === 'review' ? '2 of 3' : '3 of 3'}</span>
+            </div>
+          )}
         </div>
       </header>
 
+      {/* Progress Indicator */}
+      {step !== 'input' && (
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${step !== 'input' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700 text-gray-300'}`}>
+              1
+            </div>
+            <div className={`h-1 flex-1 rounded-full transition-all ${step === 'publish' ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gray-700'}`}></div>
+            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${step === 'review' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : step === 'publish' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700 text-gray-300'}`}>
+              2
+            </div>
+            <div className={`h-1 flex-1 rounded-full transition-all ${step === 'publish' ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gray-700'}`}></div>
+            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${step === 'publish' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700 text-gray-300'}`}>
+              3
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="relative z-10 max-w-6xl mx-auto px-4 py-8">
         {step === 'input' && <TextInput onExtract={handleExtract} loading={loading} />}
 
         {step === 'review' && (

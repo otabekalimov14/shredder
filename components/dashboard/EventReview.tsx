@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { setConfidenceBadgeColor, priorityToEmoji } from '@/lib/ai/extraction';
+import { CheckCircle, AlertCircle } from 'lucide-react';
 import type { ExtractedEvent } from '@/lib/types';
 
 interface EventReviewProps {
@@ -38,16 +39,20 @@ export default function EventReview({
   return (
     <div className="space-y-8">
       {/* Section Header */}
-      <div>
-        <h2 className="text-xl font-semibold text-black mb-2">Step 2: Review</h2>
-        <p className="text-gray-600">
-          {events.length} event{events.length !== 1 ? 's' : ''} extracted. Edit as needed and select which to
-          publish.
-        </p>
+      <div className="flex items-center gap-3">
+        <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
+          <CheckCircle className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h2 className="text-3xl font-bold">Review Events</h2>
+          <p className="text-gray-400 mt-1">
+            {events.length} event{events.length !== 1 ? 's' : ''} extracted. Edit as needed and select which to publish.
+          </p>
+        </div>
       </div>
 
       {/* Select All */}
-      <div className="flex items-center gap-2 pb-4 border-b border-gray-200">
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 backdrop-blur border border-purple-500/20">
         <input
           type="checkbox"
           id="select-all"
