@@ -7,9 +7,17 @@ import { ExtractionResultSchema } from '@/lib/schemas/validation';
 import { sanitizeInput, truncateText } from '@/lib/utils/date';
 import type { ExtractionResult, ExtractedEvent } from '@/lib/types';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy initialize OpenAI client to avoid build-time errors
+let client: OpenAI | null = null;
+
+function getOpenAIClient() {
+  if (!client) {
+    client = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return client;
+}
 
 const SYSTEM_PROMPT = `You are an expert academic information extraction assistant. Your task is to extract structured event data from academic documents and announcements.
 
@@ -60,7 +68,7 @@ export async function extractEventsFromText(
 
 ${truncatedText}`;
 
-    const response = await client.chat.completions.create({
+    const response = await getOpenAIClient().chat.completions.create({
       model: 'gpt-4-turbo',
       messages: [
         {
